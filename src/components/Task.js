@@ -3,14 +3,13 @@ import PropTypes from 'prop-types';
 
 import './Task.css';
 
-const Task = ({ id, title, isComplete, onUpdateTask }) => {
+const Task = ({ id, title, isComplete, onUpdateTask, onDeleteTask }) => {
   const onTaskClick = () => {
     const updatedTask = {
       id: id,
       title: title,
       isComplete: !isComplete
     };
-
     onUpdateTask(updatedTask);
   };
 
@@ -24,7 +23,7 @@ const Task = ({ id, title, isComplete, onUpdateTask }) => {
       >
         {title}
       </button>
-      <button className="tasks__item__remove button">x</button>
+      <button className="tasks__item__remove button" onClick={() => onDeleteTask(id)}>x</button>
     </li>
   );
 };
@@ -33,7 +32,8 @@ Task.propTypes = {
   id: PropTypes.number.isRequired,
   title: PropTypes.string.isRequired,
   isComplete: PropTypes.bool.isRequired,
-  onUpdateTask: PropTypes.func.isRequired
+  onUpdateTask: PropTypes.func.isRequired,
+  onDeleteTask: PropTypes.func.isRequired
 };
 
 export default Task;
