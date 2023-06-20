@@ -7,18 +7,6 @@ const URL = 'https://coolcud-task-list-api.onrender.com';
 // const URL = 'https://task-list-api-c17.onrender.com/';
 
 
-const mapTasks = (responseData) => {
-  const taskData = responseData.data.map((task) => {
-    return {
-      id: task.id,
-      title: task.title,
-      isComplete: task.is_complete
-    };
-  });
-  return taskData;
-};
-
-
 // App
 const App = () => {
   const [taskData, setTaskData] = useState([]);
@@ -27,7 +15,13 @@ const App = () => {
     axios
       .get(`${URL}/tasks`)
       .then((response) => {
-        const newTasks = mapTasks(response);
+        const newTasks = response.data.map((task) => {
+          return {
+            id: task.id,
+            title: task.title,
+            isComplete: task.is_complete
+          };
+        });
         setTaskData(newTasks);
       })
       .catch((error) => {
