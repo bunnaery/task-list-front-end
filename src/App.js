@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import TaskList from './components/TaskList.js';
+import NewTaskForm from './components/NewTaskForm.js';
 import axios from 'axios';
 import './App.css';
 
@@ -59,6 +60,19 @@ const App = () => {
       });
   };
 
+  const addTaskData = newTask => {
+    const newTaskList = [...taskData];
+
+    const nextId = Math.max(...newTaskList.map(task => task.id)) + 1;
+
+    newTaskList.push({
+      id: nextId,
+      title: newTask.title,
+      isComplete: false
+    });
+    setTaskData(newTaskList);
+  };
+
   return (
     <div className="App">
       <header className="App-header">
@@ -71,6 +85,11 @@ const App = () => {
             onUpdateTask={toggleCompleteTask}
             onDeleteTask={deleteTask}
           />}
+        </div>
+        <div>
+          <NewTaskForm
+            addTaskCallback={addTaskData}
+          />
         </div>
       </main>
     </div>
