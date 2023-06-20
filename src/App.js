@@ -3,22 +3,9 @@ import TaskList from './components/TaskList.js';
 import axios from 'axios';
 import './App.css';
 
-// const URL = 'https://coolcud-task-list-api.onrender.com';
+const URL = 'https://coolcud-task-list-api.onrender.com';
 // const URL = 'https://task-list-api-c17.onrender.com/';
 
-// Data
-// const TASKS = [
-//   {
-//     id: 1,
-//     title: 'Mow the lawn',
-//     isComplete: false,
-//   },
-//   {
-//     id: 2,
-//     title: 'Cook Pasta',
-//     isComplete: true,
-//   },
-// ];
 
 const mapTasks = (responseData) => {
   const taskData = responseData.data.map((task) => {
@@ -28,9 +15,9 @@ const mapTasks = (responseData) => {
       isComplete: task.is_complete
     };
   });
-
   return taskData;
 };
+
 
 // App
 const App = () => {
@@ -52,18 +39,6 @@ const App = () => {
     getTasks();
   }, []);
 
-  // const updateTask = updatedTask => {
-  //   const tasks = taskData.map(task => {
-  //     if (task.id === updatedTask.id) {
-  //       return updatedTask;
-  //     } else {
-  //       return task;
-  //     }
-  //   });
-
-  //   setTaskData(tasks);
-  // };
-
   const toggleCompleteTask = task => {
     let newURL = '';
     if (task.isComplete) {
@@ -83,9 +58,11 @@ const App = () => {
   };
 
   const deleteTask = id => {
-    setTaskData(oldTasks => {
-      return oldTasks.filter(task => task.id != id);
-    });
+    axios
+      .delete(`${URL}/tasks/${id}`)
+      .then(() => {
+        getTasks();
+      });
   };
 
   return (
@@ -107,3 +84,26 @@ const App = () => {
 };
 
 export default App;
+
+
+  // BEFORE CONNECTING TO BACKEND:
+
+  // UPDATE TASK FUNCTION:
+  // const updateTask = updatedTask => {
+  //   const tasks = taskData.map(task => {
+  //     if (task.id === updatedTask.id) {
+  //       return updatedTask;
+  //     } else {
+  //       return task;
+  //     }
+  //   });
+
+  //   setTaskData(tasks);
+  // };
+
+  // DELETE TASK FUNCTION:
+  // const deleteTask = id => {
+  //   setTaskData(oldTasks => {
+  //     return oldTasks.filter(task => task.id != id);
+  //   });
+  // };
