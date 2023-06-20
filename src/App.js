@@ -4,8 +4,8 @@ import NewTaskForm from './components/NewTaskForm.js';
 import axios from 'axios';
 import './App.css';
 
-const URL = 'https://coolcud-task-list-api.onrender.com';
-// const URL = 'https://task-list-api-c17.onrender.com/';
+const URL = 'https://coolcud-task-list-api.onrender.com/tasks';
+// const URL = 'https://task-list-api-c17.onrender.com/tasks';
 
 
 // App
@@ -14,7 +14,7 @@ const App = () => {
 
   const getTasks = () => {
     axios
-      .get(`${URL}/tasks`)
+      .get(`${URL}`)
       .then((response) => {
         const newTasks = response.data.map((task) => {
           return {
@@ -34,9 +34,9 @@ const App = () => {
   const toggleCompleteTask = task => {
     let newURL = '';
     if (task.isComplete) {
-      newURL = `${URL}/tasks/${task.id}/mark_complete`;
+      newURL = `${URL}/${task.id}/mark_complete`;
     } else {
-      newURL = `${URL}/tasks/${task.id}/mark_incomplete`;
+      newURL = `${URL}/${task.id}/mark_incomplete`;
     }
 
     axios
@@ -48,7 +48,7 @@ const App = () => {
 
   const deleteTask = id => {
     axios
-      .delete(`${URL}/tasks/${id}`)
+      .delete(`${URL}/${id}`)
       .then(() => {
         getTasks();
       });
@@ -60,7 +60,7 @@ const App = () => {
       description: 'description'
     };
     axios
-      .post(`${URL}/tasks`, params)
+      .post(`${URL}`, params)
       .then(() => {
         getTasks();
       });
