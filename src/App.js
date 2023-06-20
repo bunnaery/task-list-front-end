@@ -24,9 +24,6 @@ const App = () => {
           };
         });
         setTaskData(newTasks);
-      })
-      .catch((error) => {
-        console.log(error);
       });
   };
 
@@ -46,9 +43,6 @@ const App = () => {
       .patch(newURL)
       .then(() => {
         getTasks();
-      })
-      .catch((error) => {
-        console.log(error);
       });
   };
 
@@ -61,17 +55,17 @@ const App = () => {
   };
 
   const addTaskData = newTask => {
-    const newTaskList = [...taskData];
-
-    const nextId = Math.max(...newTaskList.map(task => task.id)) + 1;
-
-    newTaskList.push({
-      id: nextId,
+    const params = {
       title: newTask.title,
-      isComplete: false
-    });
-    setTaskData(newTaskList);
+      description: 'description'
+    };
+    axios
+      .post(`${URL}/tasks`, params)
+      .then(() => {
+        getTasks();
+      });
   };
+
 
   return (
     <div className="App">
@@ -119,4 +113,18 @@ export default App;
   //   setTaskData(oldTasks => {
   //     return oldTasks.filter(task => task.id != id);
   //   });
+  // };
+
+  // FORM SUBMIT FUNCTION:
+  // const addTaskData = newTask => {
+  //   const newTaskList = [...taskData];
+
+  //   const nextId = Math.max(...newTaskList.map(task => task.id)) + 1;
+
+  //   newTaskList.push({
+  //     id: nextId,
+  //     title: newTask.title,
+  //     isComplete: false
+  //   });
+  //   setTaskData(newTaskList);
   // };
