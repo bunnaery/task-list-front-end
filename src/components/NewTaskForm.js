@@ -31,6 +31,7 @@ const NewTaskForm = ({ addTaskCallback }) => {
       <div>
         <label htmlFor='title'>Title:</label>
         <input
+          id='title'
           name='title'
           value={formFields.title}
           onChange={onTitleChange}
