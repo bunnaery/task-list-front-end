@@ -19,7 +19,7 @@ describe('Task', () => {
     expect(screen.getByText('Test Title')).toBeInTheDocument();
   });
 
-  test.skip('Runs callbacks when buttons clicked', () => {
+  test('Runs callbacks when buttons clicked', () => {
     // Arrange
     const clickCallback = jest.fn();
     const deleteCallback = jest.fn();
@@ -30,8 +30,8 @@ describe('Task', () => {
         id={42}
         title={'Test Title'}
         isComplete={true}
-        onClickCallback={clickCallback}
-        onDeleteCallback={deleteCallback}
+        onUpdateTask={clickCallback}
+        onDeleteTask={deleteCallback}
       />
     );
 
@@ -42,7 +42,7 @@ describe('Task', () => {
     expect(clickCallback).toHaveBeenCalledTimes(1);
     expect(deleteCallback).toHaveBeenCalledTimes(1);
     // Check parameters passed to callbacks
-    expect(clickCallback).toHaveBeenCalledWith(42);
+    expect(clickCallback).toHaveBeenCalledWith({"id": 42, "isComplete": false, "title": "Test Title"});
     expect(deleteCallback).toHaveBeenCalledWith(42);
   });
 
