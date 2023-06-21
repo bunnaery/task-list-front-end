@@ -32,15 +32,9 @@ const App = () => {
   }, []);
 
   const toggleCompleteTask = task => {
-    let newURL = '';
-    if (task.isComplete) {
-      newURL = `${URL}/${task.id}/mark_complete`;
-    } else {
-      newURL = `${URL}/${task.id}/mark_incomplete`;
-    }
-
+    const endURL = task.isComplete ? 'mark_complete' : 'mark_incomplete';
     axios
-      .patch(newURL)
+      .patch(`${URL}/${task.id}/${endURL}`)
       .then(() => {
         getTasks();
       });
